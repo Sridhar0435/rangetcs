@@ -10,6 +10,7 @@ const envDetails = {
       "commercial-workflow-range/v1/events/{eventId}/process/hbtwEventRequestHandler",
     PUT_CAMUNDA_CLAIM:
       "commercial-workflow-range/v1/tasks/{taskId}/claim/process/hbtwEventRequestHandler",
+    GET_RESET_TYPES: "rangereset/v2/config/Reset Type",
     PUT_MANAGE_EVENT_PUBLISH_TASK_CAMUNDA:
       "commercial-workflow-range/v1/events/{eventId}/approverangeevent/process/hbtwEventRequestHandler",
     GET_APP_MENU_ID: "commercial-user/v1/apps/{appMenuId}",
@@ -56,6 +57,7 @@ const envDetails = {
       "commercial-workflow-range/v1/events/{eventId}/process/hbtwEventRequestHandler",
     PUT_CAMUNDA_CLAIM:
       "commercial-workflow-range/v1/tasks/{taskId}/claim/process/hbtwEventRequestHandler",
+    GET_RESET_TYPES: "rangereset/v2/config/Reset Type",
     PUT_MANAGE_EVENT_PUBLISH_TASK_CAMUNDA:
       "commercial-workflow-range/v1/events/{eventId}/approverangeevent/process/hbtwEventRequestHandler",
     GET_APP_MENU_ID: "commercial-user/v1/apps/{appMenuId}",
@@ -102,6 +104,7 @@ const envDetails = {
       "commercial-workflow-range/v1/events/{eventId}/process/hbtwEventRequestHandler",
     PUT_CAMUNDA_CLAIM:
       "commercial-workflow-range/v1/tasks/{taskId}/claim/process/hbtwEventRequestHandler",
+    GET_RESET_TYPES: "rangereset/v2/config/Reset Type",
     PUT_MANAGE_EVENT_PUBLISH_TASK_CAMUNDA:
       "commercial-workflow-range/v1/events/{eventId}/approverangeevent/process/hbtwEventRequestHandler",
     GET_APP_MENU_ID: "commercial-user/v1/apps/{appMenuId}",
@@ -148,6 +151,7 @@ const envDetails = {
       "commercial-workflow-range/v1/events/{eventId}/process/hbtwEventRequestHandler",
     PUT_CAMUNDA_CLAIM:
       "commercial-workflow-range/v1/tasks/{taskId}/claim/process/hbtwEventRequestHandler",
+    GET_RESET_TYPES: "rangereset/v2/config/Reset Type",
     PUT_MANAGE_EVENT_PUBLISH_TASK_CAMUNDA:
       "commercial-workflow-range/v1/events/{eventId}/approverangeevent/process/hbtwEventRequestHandler",
     GET_APP_MENU_ID: "commercial-user/v1/apps/{appMenuId}",
@@ -194,6 +198,7 @@ const envDetails = {
       "commercial-workflow-range/v1/events/{eventId}/process/hbtwEventRequestHandler/:eventid",
     PUT_CAMUNDA_CLAIM:
       "commercial-workflow-range/v1/tasks/{taskId}/claim/process/hbtwEventRequestHandler",
+    GET_RESET_TYPES: "rangereset/v2/config/Reset Type",
     PUT_MANAGE_EVENT_PUBLISH_TASK_CAMUNDA:
       "commercial-workflow-range/v1/events/{eventId}/approverangeevent/process/hbtwEventRequestHandler",
     GET_APP_MENU_ID: "commercial-user/v1/apps/{appMenuId}",

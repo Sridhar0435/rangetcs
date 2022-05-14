@@ -20,7 +20,7 @@ import {
   SupplyChainSpecialists,
   CategoryDirectors,
   classOptions,
-  resetTypes,
+  // resetTypes,
   groups,
   categories,
   departments,
@@ -64,6 +64,7 @@ import {
   getUsersAPIByRole,
   putManageEventByEventIdAPI,
   claimEventsCamunda,
+  getResetTypes,
 } from '../../../api/Fetch'
 import SearchSelect from '../../components/SearchSelect/SearchSelect'
 import ConfirmCheckSign from '../../components/ConfirmCheck/ConfirmCheckSign'
@@ -87,6 +88,7 @@ function ManageEventCreate(props: any) {
 
   const { DEFAULT, RANGEAMEND_EVENTDASH, RANGEAMEND_MANAGE } = routes
 
+  const [resetTypes, setResetTypes] = useState<any>()
   const [eventDetails, setEventDetails] = useState<any>()
   const [team, setTeam] = useState<any>()
   const [eventName, setEventName] = useState<any>('')
@@ -198,6 +200,22 @@ function ManageEventCreate(props: any) {
         .catch((err: any) => setGroupOptions([]))
   }, [])
 
+  useEffect(() => {
+    getResetTypes()
+      .then((res: any) => {
+        console.log('getResetTypes', res)
+        const types = res.data.map((val: any) => {
+          return {
+            name: val.configValue,
+            text: val.configValue,
+          }
+        })
+        setResetTypes(types)
+      })
+      .catch((err: any) => {
+        console.log('getResetTypesERROR', err)
+      })
+  })
   useEffect(() => {
     console.log(group)
     getProductHierarchyListAPI &&
@@ -806,7 +824,7 @@ function ManageEventCreate(props: any) {
   const resetTypeTemplate = (rowData: any) => {
     console.log('rowData', rowData)
     const val = resetTypes.findIndex(
-      (group) => rowData.resetType === group.text
+      (group: any) => rowData.resetType === group.text
     )
     return (
       <Select
@@ -828,7 +846,7 @@ function ManageEventCreate(props: any) {
         }}
         input={<OutlinedInput margin="dense" className={classes.muiSelect} />}
       >
-        {resetTypes.map((type) => {
+        {resetTypes.map((type: any) => {
           return (
             <MenuItem
               value={type.name}

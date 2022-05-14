@@ -37,6 +37,7 @@ const {
   GET_MANAGE_TASK_CAMUNDA,
   PUT_MANAGE_EVENT_PUBLISH_TASK_CAMUNDA,
   PUT_CAMUNDA_CLAIM,
+  GET_RESET_TYPES,
 } = config;
 
 export const userV2Login = (idToken) => {
@@ -298,6 +299,11 @@ export const claimEventsCamunda = (taskId, req) => {
   url = url.replace("{taskId}", taskId);
   let reqBody = `${JSON.stringify(req)}`;
   return serviceRequest(url, "PUT", reqBody);
+};
+export const getResetTypes = () => {
+  let url = `${BASE_URL}${GET_RESET_TYPES}`;
+  // const params = `createdByIdIn=${createdBy}`
+  return serviceRequest(url, "GET", undefined);
 };
 export const putManageEventByEventIdAPI = (req, eventId) => {
   let url = `${BASE_URL}${PUT_MANAGE_EVENT_PUBLISH_TASK_CAMUNDA}`;
