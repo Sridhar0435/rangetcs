@@ -215,7 +215,7 @@ function ManageEventCreate(props: any) {
       .catch((err: any) => {
         console.log('getResetTypesERROR', err)
       })
-  })
+  },[])
   useEffect(() => {
     console.log(group)
     getProductHierarchyListAPI &&
