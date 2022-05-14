@@ -1,0 +1,1523 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Range Change Workflow App",
+      "description": "Range Change Workflow App supports Morrisons Range Change processes. Provides ability to record range reset items and views supply and demand for an item, to make workflow driven decisions on the discontinuation or derange of an item. The workflow orchestrates the management of key process milestones and back end service callsto record GSCOP dates, calculate Depo level purchase order stop dates.",
+      "version": "v1.0.6",
+      "contact": {
+        "name": "Sal Kabay",
+        "url": "http://www.example.com/support",
+        "email": "salih.kabay@morrisonsplc.co.uk"
+      },
+      "license": {
+        "name": "Apache 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+      }
+    },
+    "servers": [
+      {
+        "url": "https://dev-api.morrisons.com/commercial-workflow-range/v1",
+        "description": "Development"
+      },
+      {
+        "url": "https://sit-api.morrisons.com/commercial-workflow-range/v1",
+        "description": "Test"
+      },
+      {
+        "url": "https://pre-api.morrisons.com/commercial-workflow-range/v1",
+        "description": "Pre-Prod"
+      }
+    ],
+    "paths": {
+      "/tasks/{taskId}/updatereviewdate": {
+        "put": {
+          "tags": [
+            "task-controller"
+          ],
+          "operationId": "updateReviewDateByTaskId",
+          "parameters": [
+            {
+              "name": "taskId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewDateRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ReviewDateResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/tasks/{taskId}/updateduedate": {
+        "put": {
+          "tags": [
+            "task-controller"
+          ],
+          "operationId": "updateDueDateByTaskId",
+          "parameters": [
+            {
+              "name": "taskId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DueDateRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/tasks/{taskId}/unclaim": {
+        "put": {
+          "tags": [
+            "task-controller"
+          ],
+          "operationId": "unClaimTaskByTaskId",
+          "parameters": [
+            {
+              "name": "taskId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClaimRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/tasks/{taskId}/complete": {
+        "put": {
+          "tags": [
+            "task-controller"
+          ],
+          "operationId": "completeTaskByTaskId",
+          "parameters": [
+            {
+              "name": "taskId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskCompleteRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/tasks/{taskId}/claim/process/{processDefKey}": {
+        "put": {
+          "tags": [
+            "task-controller"
+          ],
+          "operationId": "claimTaskByTaskId",
+          "parameters": [
+            {
+              "name": "taskId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "processDefKey",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClaimRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/tasks/users/{userId}/unclaim/process/{processDefKey}": {
+        "put": {
+          "tags": [
+            "task-controller"
+          ],
+          "operationId": "unClaimTasksByUserId",
+          "parameters": [
+            {
+              "name": "userId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "processDefKey",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClaimRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/events/{eventId}/process/{processDefKey}": {
+        "get": {
+          "tags": [
+            "event-controller"
+          ],
+          "operationId": "getEventDetails_1",
+          "parameters": [
+            {
+              "name": "eventId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "processDefKey",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/EventDetailsResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "event-controller"
+          ],
+          "operationId": "updatetEventDetails",
+          "parameters": [
+            {
+              "name": "eventId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "processDefKey",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RangeEventRequests"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/EventsUpdateResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/events/{eventId}/milestones/process/{processDefKey}": {
+        "get": {
+          "tags": [
+            "event-controller"
+          ],
+          "operationId": "getEventMilestones",
+          "parameters": [
+            {
+              "name": "eventId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "processDefKey",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Milestone"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "event-controller"
+          ],
+          "operationId": "updatetEventMilestones",
+          "parameters": [
+            {
+              "name": "eventId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "processDefKey",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventUpdateRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/events/{eventId}/approverangeevent/process/{processDefKey}": {
+        "put": {
+          "tags": [
+            "event-controller"
+          ],
+          "operationId": "approveEventRequest",
+          "parameters": [
+            {
+              "name": "eventId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "processDefKey",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApproveRangeEventRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/tasks/{taskId}": {
+        "get": {
+          "tags": [
+            "task-controller"
+          ],
+          "operationId": "getTaskDetailsByTaskId",
+          "parameters": [
+            {
+              "name": "taskId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/tasks/users/{userId}/process/{processDefKey}": {
+        "get": {
+          "tags": [
+            "task-controller"
+          ],
+          "operationId": "getUserTaskStatusByUserId",
+          "parameters": [
+            {
+              "name": "userId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "processDefKey",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/TaskInfo"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/tasks/businesskeys/{businessKey}": {
+        "get": {
+          "tags": [
+            "task-controller"
+          ],
+          "operationId": "getUserTasksByBusinessKey",
+          "parameters": [
+            {
+              "name": "businessKey",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CompletedRunningTaskDetailsResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/status/{userId}/process/{processDefKey}": {
+        "get": {
+          "tags": [
+            "status-controller"
+          ],
+          "operationId": "getActiveAndCompletedTasksCount",
+          "parameters": [
+            {
+              "name": "userId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "processDefKey",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UserDashboardCounts"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/ping": {
+        "get": {
+          "tags": [
+            "ping-controller"
+          ],
+          "operationId": "getEventDetails",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/events/users/{userId}/process/{processDefKey}": {
+        "get": {
+          "tags": [
+            "event-controller"
+          ],
+          "operationId": "getEventsUserStatus",
+          "parameters": [
+            {
+              "name": "userId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "processDefKey",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UserMilestones"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/events/process/{processDefKey}": {
+        "get": {
+          "tags": [
+            "event-controller"
+          ],
+          "operationId": "getAllEvents",
+          "parameters": [
+            {
+              "name": "processDefKey",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RangeEventRequests"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "event-controller"
+          ],
+          "operationId": "deleteEvents",
+          "parameters": [
+            {
+              "name": "processDefKey",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteEventsRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "*/*": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DeleteEventsResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "ReviewDateRequest": {
+          "type": "object",
+          "properties": {
+            "requesterUserId": {
+              "type": "string"
+            },
+            "requesterUserGroup": {
+              "type": "string"
+            },
+            "reviewDate": {
+              "type": "string"
+            }
+          }
+        },
+        "ReviewDateResponse": {
+          "type": "object",
+          "properties": {
+            "taskId": {
+              "type": "string"
+            },
+            "businessKey": {
+              "type": "string"
+            },
+            "reviewDate": {
+              "type": "string"
+            },
+            "previousReviewDate": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "comments": {
+              "type": "string"
+            }
+          }
+        },
+        "DueDateRequest": {
+          "type": "object",
+          "properties": {
+            "requesterUserId": {
+              "type": "string"
+            },
+            "requesterUserGroup": {
+              "type": "string"
+            },
+            "dueDate": {
+              "type": "string"
+            }
+          }
+        },
+        "ClaimRequest": {
+          "type": "object",
+          "properties": {
+            "requestorDetails": {
+              "$ref": "#/components/schemas/RequestorDetails"
+            },
+            "requestorRoles": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Roles"
+              }
+            }
+          }
+        },
+        "RequestorDetails": {
+          "type": "object",
+          "properties": {
+            "emailId": {
+              "type": "string"
+            },
+            "requestBy": {
+              "type": "string"
+            },
+            "requesterName": {
+              "type": "string"
+            },
+            "requestType": {
+              "type": "string"
+            },
+            "requestDate": {
+              "type": "string"
+            }
+          }
+        },
+        "Roles": {
+          "type": "object",
+          "properties": {
+            "roleId": {
+              "type": "string"
+            }
+          }
+        },
+        "TaskCompleteRequest": {
+          "type": "object",
+          "properties": {
+            "requestorDetails": {
+              "$ref": "#/components/schemas/RequestorDetails"
+            },
+            "requestorRoles": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Roles"
+              }
+            },
+            "taskVariables": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "processDefKey": {
+              "type": "string"
+            }
+          }
+        },
+        "ActorDetails": {
+          "type": "object",
+          "properties": {
+            "emailId": {
+              "type": "string"
+            },
+            "userId": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        },
+        "InventoryControl": {
+          "type": "object",
+          "properties": {
+            "planogramClass": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "clearancePriceApplied": {
+              "type": "string"
+            },
+            "orderStopDateCheckRequired": {
+              "type": "string"
+            },
+            "stopOrderStockRundown": {
+              "type": "string"
+            },
+            "storeWastetiming": {
+              "type": "string"
+            }
+          }
+        },
+        "RangeEventActor": {
+          "type": "object",
+          "properties": {
+            "persona": {
+              "type": "string"
+            },
+            "details": {
+              "$ref": "#/components/schemas/ActorDetails"
+            }
+          }
+        },
+        "RangeEventHeader": {
+          "type": "object",
+          "properties": {
+            "resetType": {
+              "type": "string"
+            },
+            "rafAppDueDate": {
+              "type": "string"
+            },
+            "eventLaunchDate": {
+              "type": "string"
+            },
+            "eventName": {
+              "type": "string"
+            },
+            "eventHierarchy": {
+              "$ref": "#/components/schemas/RangeEventHierarchy"
+            },
+            "inventoryControl": {
+              "$ref": "#/components/schemas/InventoryControl"
+            },
+            "eventTeam": {
+              "$ref": "#/components/schemas/RangeEventTeam"
+            }
+          }
+        },
+        "RangeEventHierarchy": {
+          "type": "object",
+          "properties": {
+            "tradingGroup": {
+              "type": "string"
+            },
+            "category": {
+              "type": "string"
+            },
+            "department": {
+              "type": "string"
+            }
+          }
+        },
+        "RangeEventRequest": {
+          "type": "object",
+          "properties": {
+            "submitType": {
+              "type": "string"
+            },
+            "eventId": {
+              "type": "string"
+            },
+            "eventStatus": {
+              "type": "string"
+            },
+            "requester": {
+              "$ref": "#/components/schemas/Requester"
+            },
+            "eventHeader": {
+              "$ref": "#/components/schemas/RangeEventHeader"
+            }
+          }
+        },
+        "RangeEventRequests": {
+          "type": "object",
+          "properties": {
+            "requests": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/RangeEventRequest"
+              }
+            }
+          }
+        },
+        "RangeEventTeam": {
+          "type": "object",
+          "properties": {
+            "team": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/RangeEventActor"
+              }
+            }
+          }
+        },
+        "Requester": {
+          "type": "object",
+          "properties": {
+            "persona": {
+              "type": "string"
+            },
+            "details": {
+              "$ref": "#/components/schemas/ActorDetails"
+            },
+            "roles": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Roles"
+              }
+            },
+            "usergroups": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/UserGroups"
+              }
+            }
+          }
+        },
+        "UserGroups": {
+          "type": "object",
+          "properties": {
+            "groupId": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          }
+        },
+        "EventAlert": {
+          "type": "object",
+          "properties": {
+            "eventId": {
+              "type": "string"
+            },
+            "alertMessage": {
+              "type": "string"
+            }
+          }
+        },
+        "EventMilestoneAlert": {
+          "type": "object",
+          "properties": {
+            "milestone": {
+              "type": "string"
+            },
+            "alertCode": {
+              "type": "string"
+            },
+            "alertMessage": {
+              "type": "string"
+            }
+          }
+        },
+        "EventMilestones": {
+          "type": "object",
+          "properties": {
+            "eventId": {
+              "type": "string"
+            },
+            "milestones": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Milestone"
+              }
+            }
+          }
+        },
+        "EventUpdateResponse": {
+          "type": "object",
+          "properties": {
+            "eventMilestones": {
+              "$ref": "#/components/schemas/EventMilestones"
+            },
+            "eventMilestoneAlert": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/EventMilestoneAlert"
+              }
+            },
+            "eventAlert": {
+              "$ref": "#/components/schemas/EventAlert"
+            },
+            "serverResponse": {
+              "$ref": "#/components/schemas/ServerResponse"
+            }
+          }
+        },
+        "EventsUpdateResponse": {
+          "type": "object",
+          "properties": {
+            "eventUpdateResponses": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/EventUpdateResponse"
+              }
+            },
+            "logging": {
+              "$ref": "#/components/schemas/Logging"
+            }
+          }
+        },
+        "Logging": {
+          "type": "object",
+          "properties": {
+            "comments": {
+              "type": "string"
+            },
+            "updated": {
+              "type": "string"
+            }
+          }
+        },
+        "Milestone": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "visibility": {
+              "type": "string"
+            },
+            "taskId": {
+              "type": "string"
+            },
+            "taskName": {
+              "type": "string"
+            },
+            "taskDescription": {
+              "type": "string"
+            },
+            "dueDate": {
+              "type": "string"
+            },
+            "notifyDate": {
+              "type": "string"
+            },
+            "slaDate": {
+              "type": "string"
+            },
+            "assigneeDetails": {
+              "$ref": "#/components/schemas/ActorDetails"
+            },
+            "assigneeRole": {
+              "type": "string"
+            }
+          }
+        },
+        "ServerResponse": {
+          "type": "object",
+          "properties": {
+            "httpResponseCode": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "errorCode": {
+              "type": "string"
+            },
+            "errorMessage": {
+              "type": "string"
+            },
+            "errorrMoreInfo": {
+              "type": "string"
+            },
+            "successMessage": {
+              "type": "string"
+            }
+          }
+        },
+        "EventUpdateRequest": {
+          "type": "object",
+          "properties": {
+            "rangeEventRequest": {
+              "$ref": "#/components/schemas/RangeEventRequest"
+            },
+            "eventMilestones": {
+              "$ref": "#/components/schemas/EventMilestones"
+            },
+            "logging": {
+              "$ref": "#/components/schemas/Logging"
+            }
+          }
+        },
+        "ApproveRangeEventRequest": {
+          "type": "object",
+          "properties": {
+            "reviewDecision": {
+              "type": "string"
+            },
+            "requester": {
+              "$ref": "#/components/schemas/Requester"
+            },
+            "eventId": {
+              "type": "string"
+            },
+            "eventStatus": {
+              "type": "string"
+            },
+            "eventHeader": {
+              "$ref": "#/components/schemas/RangeEventHeader"
+            },
+            "milestones": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Milestone"
+              }
+            },
+            "logging": {
+              "$ref": "#/components/schemas/Logging"
+            }
+          }
+        },
+        "TaskInfo": {
+          "type": "object",
+          "properties": {
+            "taskId": {
+              "type": "string"
+            },
+            "taskName": {
+              "type": "string"
+            },
+            "taskDefinitionKey": {
+              "type": "string"
+            },
+            "assignee": {
+              "type": "string"
+            },
+            "group": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "dueDate": {
+              "type": "string"
+            },
+            "reviewDate": {
+              "type": "string"
+            },
+            "executionId": {
+              "type": "string"
+            },
+            "processInstanceId": {
+              "type": "string"
+            },
+            "processDefinitionId": {
+              "type": "string"
+            },
+            "comments": {
+              "type": "string"
+            }
+          }
+        },
+        "CompletedRunningTaskDetailsResponse": {
+          "type": "object",
+          "properties": {
+            "completed": {
+              "$ref": "#/components/schemas/TaskDetailsListResponse"
+            },
+            "running": {
+              "$ref": "#/components/schemas/TaskDetailsListResponse"
+            }
+          }
+        },
+        "TaskDetailsListResponse": {
+          "type": "object",
+          "properties": {
+            "tasks": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/TaskDetailsResponse"
+              }
+            }
+          }
+        },
+        "TaskDetailsResponse": {
+          "type": "object",
+          "properties": {
+            "taskId": {
+              "type": "string"
+            },
+            "assignee": {
+              "type": "string"
+            },
+            "taskName": {
+              "type": "string"
+            },
+            "group": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "dueDate": {
+              "type": "string"
+            },
+            "comments": {
+              "type": "string"
+            }
+          }
+        },
+        "UserDashboardCountTask": {
+          "type": "object",
+          "properties": {
+            "requestId": {
+              "type": "string"
+            },
+            "assignedToUserId": {
+              "type": "string"
+            },
+            "assignedToGroupId": {
+              "type": "string"
+            },
+            "assignedTimeStamp": {
+              "type": "string"
+            },
+            "taskId": {
+              "type": "string"
+            },
+            "taskName": {
+              "type": "string"
+            },
+            "requestorUserId": {
+              "type": "string"
+            },
+            "requestorFullName": {
+              "type": "string"
+            },
+            "requestorRole": {
+              "type": "string"
+            },
+            "comments": {
+              "type": "string"
+            },
+            "userFirstName": {
+              "type": "string"
+            },
+            "userMiddleName": {
+              "type": "string"
+            },
+            "userLastName": {
+              "type": "string"
+            },
+            "userEmployeeId": {
+              "type": "string"
+            },
+            "userEmailId": {
+              "type": "string"
+            },
+            "businessKey": {
+              "type": "string"
+            },
+            "requestTimestamp": {
+              "type": "string"
+            }
+          }
+        },
+        "UserDashboardCounts": {
+          "type": "object",
+          "properties": {
+            "userId": {
+              "type": "string"
+            },
+            "status": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/UserDashboardCountsDetailsStatus"
+              }
+            }
+          }
+        },
+        "UserDashboardCountsDetailsStatus": {
+          "type": "object",
+          "properties": {
+            "details": {
+              "type": "string"
+            },
+            "count": {
+              "type": "string"
+            },
+            "tasks": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/UserDashboardCountTask"
+              }
+            }
+          }
+        },
+        "EventDetails": {
+          "type": "object",
+          "properties": {
+            "rangeEventRequest": {
+              "$ref": "#/components/schemas/RangeEventRequest"
+            },
+            "milestones": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Milestone"
+              }
+            }
+          }
+        },
+        "EventDetailsResponse": {
+          "type": "object",
+          "properties": {
+            "eventDetailsList": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/EventDetails"
+              }
+            },
+            "logging": {
+              "$ref": "#/components/schemas/Logging"
+            }
+          }
+        },
+        "TasksDashboardCountsDetailsStatus": {
+          "type": "object",
+          "properties": {
+            "details": {
+              "type": "string"
+            },
+            "count": {
+              "type": "string"
+            },
+            "milestones": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Milestone"
+              }
+            }
+          }
+        },
+        "UserMilestones": {
+          "type": "object",
+          "properties": {
+            "userId": {
+              "type": "string"
+            },
+            "status": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/TasksDashboardCountsDetailsStatus"
+              }
+            }
+          }
+        },
+        "DeleteEventRequest": {
+          "type": "object",
+          "properties": {
+            "eventId": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          }
+        },
+        "DeleteEventsRequest": {
+          "type": "object",
+          "properties": {
+            "requester": {
+              "$ref": "#/components/schemas/Requester"
+            },
+            "deleteEventRequests": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/DeleteEventRequest"
+              }
+            },
+            "logging": {
+              "$ref": "#/components/schemas/Logging"
+            }
+          }
+        },
+        "DeleteEventsResponse": {
+          "type": "object",
+          "properties": {
+            "deletedEventsStatus": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/DeleteEventRequest"
+              }
+            },
+            "eventAlert": {
+              "$ref": "#/components/schemas/EventAlert"
+            },
+            "serverResponse": {
+              "$ref": "#/components/schemas/ServerResponse"
+            },
+            "logging": {
+              "$ref": "#/components/schemas/Logging"
+            }
+          }
+        }
+      }
+    }
+  }
